@@ -3,27 +3,26 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 	"sesi10/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "postgres"
-	dbname   = "postgres"
-)
-
 var (
+	host     = os.Getenv("PGHOST")
+	port     = os.Getenv("PGPORT")
+	user     = os.Getenv("PGUSER")
+	password = os.Getenv("PGPASSWORD")
+	dbname   = os.Getenv("PGDATABASE")
+
 	db  *gorm.DB
 	err error
 )
 
 func StartDB() {
-	config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	config := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
 
 	db, err = gorm.Open(postgres.Open(config), &gorm.Config{})

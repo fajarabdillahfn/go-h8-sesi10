@@ -2,12 +2,16 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"sesi10/database"
 	"sesi10/router"
 )
 
 func main() {
+	database.StartDB()
 	r := router.StartApp()
 
-	fmt.Println("service start at :3333")
-	r.Run(":3333")
+	port := os.Getenv("PORT")
+	fmt.Println("service start at :" + port)
+	r.Run(":" + port)
 }
